@@ -1,0 +1,64 @@
+{
+	"id": "b767a4d5-2759-48e6-89c0-7b249b79a4c9",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "https://dummyjson.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3MTc0MjQ5MzYsImV4cCI6MTcxNzQyODUzNn0.vo0WK3HElzxxTN5Anlg_9F62-6qe5ueSNPwob5I0uOY",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "login-url",
+			"value": "https://dummyjson.com/auth/login",
+			"enabled": true
+		},
+		{
+			"key": "get-auth",
+			"value": "https://dummyjson.com/auth/me",
+			"enabled": true
+		},
+		{
+			"key": "username",
+			"value": "emilys",
+			"enabled": true
+		},
+		{
+			"key": "pwd",
+			"value": "emilyspass",
+			"enabled": true
+		},
+		{
+			"key": "api-key-url",
+			"value": "https://api.getpostman.com/me",
+			"enabled": true
+		},
+		{
+			"key": "api-key",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "statuscode",
+			"value": "204",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "cookies",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2024-06-06T02:02:36.154Z",
+	"_postman_exported_using": "Postman/11.1.28-240604-0452"
+}
