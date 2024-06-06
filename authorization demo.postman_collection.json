@@ -1,0 +1,392 @@
+{
+	"info": {
+		"_postman_id": "e9d59ee9-c2cd-433e-987a-e2dcf357a09d",
+		"name": "authorization demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34787583",
+		"_collection_link": "https://universal-trinity-729970.postman.co/workspace/2ca9b229-5249-4a45-898f-145051124051/collection/35960548-e9d59ee9-c2cd-433e-987a-e2dcf357a09d?action=share&source=collection_link&creator=34787583"
+	},
+	"item": [
+		{
+			"name": "jwt demo",
+			"item": [
+				{
+					"name": "register JWT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Has token\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object');\r",
+									"\r",
+									"    const token = pm.response.json().token\r",
+									"    pm.expect(token).to.exist;\r",
+									"\r",
+									"    const body = JSON.parse(pm.request.body)\r",
+									"    if(token){\r",
+									"        pm.environment.set(\"token\" + body.name,token)\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Kiana\",\r\n    \"slogan\" : \"haha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/regisJWTToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"regisJWTToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth JWT",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bearer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Has token in environment\", function(){\r",
+							"    console.log(pm.globals.has(\"token\"))\r",
+							"    pm.expect(pm.globals.has(\"token\")).to.equal(true)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"/**",
+							" * test header include authorization",
+							" */",
+							"",
+							"pm.test(\"Has Bearer authorization\", function(){",
+							"    console.log(pm.request.auth.toJSON())",
+							"    pm.expect(pm.request.auth.toJSON().type).to.equal(\"bearer\")",
+							"})",
+							"",
+							"/**",
+							" * test value of token",
+							" */",
+							"pm.test(\"Valid token\", function () {",
+							"    pm.expect(pm.request.auth.toJSON().bearer[0].value).to.equal(pm.globals.get(\"token\"));",
+							"});",
+							"",
+							"/**",
+							" * test status code",
+							" */",
+							"pm.test(\"Status OK !\", function(){",
+							"    console.log(pm.response.code)",
+							"    pm.expect(pm.response.code).to.equal(200)",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{get-auth}}",
+					"host": [
+						"{{get-auth}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api-key",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"/**\r",
+							" * check if the global has api-key variable\r",
+							" */\r",
+							"pm.test(\"Has api key in global\", function(){\r",
+							"    pm.expect(pm.globals.has(\"api-key\")).to.equal(true)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"/**\r",
+							" * test header include authorization\r",
+							" */\r",
+							"\r",
+							"pm.test(\"Has API key authorization\", function(){\r",
+							"    console.log(pm.request.auth.toJSON())\r",
+							"    pm.expect(pm.request.headers.has(\"X-API-Key\")).to.equal(true)\r",
+							"})\r",
+							"\r",
+							"/**\r",
+							" * test value of token\r",
+							" */\r",
+							"pm.test(\"Valid token\", function () {\r",
+							"    pm.expect(pm.request.headers.get(\"X-API-Key\")).to.equal(pm.globals.get(\"api-key\"));\r",
+							"});\r",
+							"\r",
+							"/**\r",
+							" * test status code\r",
+							" */\r",
+							"pm.test(\"Status OK !\", function(){\r",
+							"    console.log(pm.response.code)\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api-key-url}}",
+					"host": [
+						"{{api-key-url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jwt",
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "secret",
+							"value": "SON-DEP-TRAI",
+							"type": "string"
+						},
+						{
+							"key": "payload",
+							"value": "    {\r\n        \"name\" : \"Elli\",\r\n        \"slogan\" : \"Hi~\"\r\n    }\r\n",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "algorithm",
+							"value": "HS256",
+							"type": "string"
+						},
+						{
+							"key": "privateKey",
+							"value": "8fPiZ1ioCAhMOYkxglsaXyik-MUCgfTb7WGwH3HxSa4",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{\r\n  \"alg\": \"HS256\",\r\n  \"typ\": \"JWT\"\r\n}",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/authJWT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"authJWT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cookies demo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const cookies = pm.globals.get(\"cookies\").split(';')\r",
+							"\r",
+							"for (const cookie of cookies){\r",
+							"    const ele = cookie.split('=')\r",
+							"    pm.cookies.jar().set(\r",
+							"        \"https://internship.cse.hcmut.edu.vn\",\r",
+							"        ele[0],\r",
+							"        ele[1],\r",
+							"        (e)=>{\r",
+							"            console.log(e)\r",
+							"        }\r",
+							"        )\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://internship.cse.hcmut.edu.vn/student/company/status?t=1717564704144",
+					"protocol": "https",
+					"host": [
+						"internship",
+						"cse",
+						"hcmut",
+						"edu",
+						"vn"
+					],
+					"path": [
+						"student",
+						"company",
+						"status"
+					],
+					"query": [
+						{
+							"key": "t",
+							"value": "1717564704144"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

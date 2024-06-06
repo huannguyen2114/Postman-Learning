@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "856aaf5c-ca13-44f1-bfca-e46e8330ddf5",
+		"name": "Dat Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34787583",
+		"_collection_link": "https://universal-trinity-729970.postman.co/workspace/2ca9b229-5249-4a45-898f-145051124051/collection/26932286-856aaf5c-ca13-44f1-bfca-e46e8330ddf5?action=share&source=collection_link&creator=34787583"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    let expectedCode = 200;\r",
+							"    pm.expect(pm.response.code).to.equal(expectedCode);\r",
+							"    pm.environment.get(\"statuscode\")\r",
+							"    pm.collectionVariables.get(\"statuscode\")\r",
+							"    pm.globals.get(\"statuscode\")\r",
+							"\r",
+							"    console.log(pm.cookies)\r",
+							"\r",
+							"    try {\r",
+							"    // pm.cookies.jar().get(\"abc.com\", \"Cookie_5\", (data) => console.log({data}))\r",
+							"    console.log(pm.cookies.jar().getAll(\"dummyjson.com\", (e, data) => console.log(e, data)))\r",
+							"    // console.log(await pm.cookies.jar())\r",
+							"    } catch(e) {\r",
+							"        console.log({e})\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "algorithm",
+							"value": "HS256",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "payload",
+							"value": "{}",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "{{statuscode}}",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/products?limit=5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "50",
+							"description": "A mock param",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Internship",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let trick = \"twk_uuid_5ec349bc8ee2956d73a26b4e=%7B%22uuid%22%3A%221.SwsO7wMTA4OT6guLQJrUGHduJnLaDSjz4WwnrTU9G4K27P9LZGylGrWcnweyBkYGErG5LpMPQJwOXO3kf0TwcA264yBZeYzai6x3B8bxtWK1zajeoJzAy%22%2C%22version%22%3A3%2C%22domain%22%3A%22hcmut.edu.vn%22%2C%22ts%22%3A1716631800346%7D; adminuser:cookieAdminuserPageNumber=1; adminuser:cookieAdminuserPageSize=50; adminstaff:cookieAdminstaffPageNumber=1; adminstaff:cookieAdminstaffPageSize=50; adminproject:cookieAdminprojectPageNumber=1; adminproject:cookieAdminprojectPageSize=50; adminpublication:cookieAdminpublicationPageNumber=1; adminpublication:cookieAdminpublicationPageSize=50; admininternshipstudent:cookieAdmininternshipstudentPageNumber=1; admininternshipstudent:cookieAdmininternshipstudentPageSize=50; admincarousel:cookieAdmincarouselPageNumber=1; admincarousel:cookieAdmincarouselPageSize=50; admincontent:cookieAdmincontentPageNumber=1; admincontent:cookieAdmincontentPageSize=50; adminvideo:cookieAdminvideoPageNumber=1; adminvideo:cookieAdminvideoPageSize=50; pagenews:cookiePagenewsPageNumber=1; pagenews:cookiePagenewsPageSize=50; pagedraftnews:cookiePagedraftnewsPageNumber=1; pagedraftnews:cookiePagedraftnewsPageSize=50; pageevent:cookiePageeventPageNumber=1; pageevent:cookiePageeventPageSize=50; pagedraftevent:cookiePagedrafteventPageNumber=1; pagedraftevent:cookiePagedrafteventPageSize=50; pagejob:cookiePagejobPageNumber=1; pagejob:cookiePagejobPageSize=50; pagedraftjob:cookiePagedraftjobPageNumber=1; pagedraftjob:cookiePagedraftjobPageSize=50; adminsubscriber:cookieAdminsubscriberPageNumber=1; adminsubscriber:cookieAdminsubscriberPageSize=50; pageeventregister:cookiePageeventregisterPageNumber=1; pageeventregister:cookiePageeventregisterPageSize=50; admincontact:cookieAdmincontactPageNumber=1; admincontact:cookieAdmincontactPageSize=50; pagecompany:cookiePagecompanyPageNumber=1; pagecompany:cookiePagecompanyPageSize=50; ntt=s%3A5pm22eS6594ty99ZOTompFdKXPeTXl1V.n%2BIJL9Vv1hwIVBH9hqwEjODnu3%2FSRRh8RKgthI7bGcY\"\r",
+							"trick = trick.split(\";\")\r",
+							"for (const a of trick) {\r",
+							"    let b = a.split(\"=\")\r",
+							"    console.log(b[0],b[1])\r",
+							"    pm.cookies.jar().set(\"https://internship.cse.hcmut.edu.vn\", b[0], b[1], (e) => {console.log(e)})\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://internship.cse.hcmut.edu.vn/state?t=1717571514396",
+					"protocol": "https",
+					"host": [
+						"internship",
+						"cse",
+						"hcmut",
+						"edu",
+						"vn"
+					],
+					"path": [
+						"state"
+					],
+					"query": [
+						{
+							"key": "t",
+							"value": "1717571514396"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "statuscode",
+			"value": "404",
+			"type": "string"
+		}
+	]
+}
